@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFkTableExpenses extends Migration
+class AddFkTableEntries extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddFkTableExpenses extends Migration
      */
     public function up()
     {
-        Schema::table('entry', function (Blueprint $table) {
-            //
+        Schema::table('entries', function (Blueprint $table) {
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -25,8 +25,8 @@ class AddFkTableExpenses extends Migration
      */
     public function down()
     {
-        Schema::table('entry', function (Blueprint $table) {
-            //
+        Schema::table('entries', function (Blueprint $table) {
+            $table->dropForeign(['categories_id']);
         });
     }
 }
