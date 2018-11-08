@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateEntryTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'users';
+    public $set_schema_table = 'entry';
 
     /**
      * Run the migrations.
-     * @table users
+     * @table entry
      *
      * @return void
      */
@@ -22,16 +22,21 @@ class CreateUsersTable extends Migration
     {
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('prefectures_id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('password')->nullable();
-            $table->rememberToken();
+            $table->unsignedInteger('categories_id');
+            $table->integer('users_id');
+            $table->string('description', 128)->nullable();
+            $table->float('price')->nullable();
+            $table->date('date')->nullable();
+            $table->tinyInteger('monthly_entry')->nullable();
 
-            $table->index(["name"], 'idx_name');
+            $table->index(["categories_id"], 'fk_entry_categories_expenses_idx');
 
-            $table->index(["email"], 'idx_email');
+            $table->index(["users_id"], 'fk_entry_users1_idx');
+            $table->nullableTimestamps();
+
+
         });
     }
 
