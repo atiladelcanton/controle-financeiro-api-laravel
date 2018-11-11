@@ -23,12 +23,11 @@ class CreateUsersTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('prefectures_id');
             $table->string('name');
             $table->string('email');
             $table->string('password')->nullable();
             $table->rememberToken();
-
+            $table->nullableTimestamps();
             $table->index(["name"], 'idx_name');
 
             $table->index(["email"], 'idx_email');

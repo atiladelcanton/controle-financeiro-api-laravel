@@ -1,16 +1,17 @@
 <?php
 
-    namespace App\Http\Controllers;
+    namespace App\Http\Controllers\Api;
 
 
-    use App\GroupDevs\Models\Entry;
+    use App\GroupDevs\Models\Category;
+    use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use Log;
 
-    class EntryController extends Controller
+    class CategorieController extends Controller
     {
         /**
-         * @api {get} /expense Get all extries
+         * @api {get} /category Get all categories
          *
          * @return \Illuminate\Http\Response
          */
@@ -34,7 +35,7 @@
 
 
         /**
-         * @api {post} Create new entry
+         * @api {post} Create new category
          *
          * @param  \Illuminate\Http\Request $request
          *
@@ -43,7 +44,7 @@
         public function store(Request $request)
         {
             try {
-                return response()->json('', 200);
+                return response()->json('', 201);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
@@ -59,13 +60,13 @@
         }
 
         /**
-         * @api {get} entry/:id  Get specific entry
+         * @api {get} category/:id  Get specific category
          *
-         * @param Entry $entry
+         * @param Category $category
          *
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Http\JsonResponse
          */
-        public function show(Entry $entry)
+        public function show(Category $category)
         {
             try {
                 return response()->json('', 200);
@@ -85,14 +86,14 @@
 
 
         /**
-         * @api {put} /entry/:id Update information of specific entry
+         * @api {put} /category/:id Update informations of specific category
          *
          * @param  \Illuminate\Http\Request $request
-         * @param Entry                     $entry
+         * @param Category                  $category
          *
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Http\JsonResponse
          */
-        public function update(Request $request, Entry $entry)
+        public function update(Request $request, Category $category)
         {
             try {
                 return response()->json('', 200);
@@ -111,13 +112,13 @@
         }
 
         /**
-         * @api {delete} /entry/:id Remove the specified entry.
+         * @api {delete} /category/:id Remove the specified category.
          *
-         * @param Entry $entry
+         * @param Category $category
          *
-         * @return \Illuminate\Http\Response
+         * @return \Illuminate\Http\JsonResponse
          */
-        public function destroy(Entry $entry)
+        public function destroy(Category $category)
         {
             try {
                 return response()->json('', 200);

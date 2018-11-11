@@ -23,6 +23,14 @@ abstract class EloquentRepository
     }
 
     /**
+     * Return all registers
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->model->get();
+    }
+    /**
      * @param $id
      * @return mixed
      */

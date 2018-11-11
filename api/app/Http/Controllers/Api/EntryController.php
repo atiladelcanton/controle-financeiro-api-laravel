@@ -1,14 +1,17 @@
 <?php
 
-    namespace App\Http\Controllers;
+    namespace App\Http\Controllers\Api;
 
-    use App\GroupDevs\Models\Expense;
+
+    use App\GroupDevs\Models\Entry;
+    use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Log;
 
-    class ExpenseController extends Controller
+    class EntryController extends Controller
     {
         /**
-         * @api {get} /expense Obtem all expense
+         * @api {get} /expense Get all extries
          *
          * @return \Illuminate\Http\Response
          */
@@ -32,7 +35,7 @@
 
 
         /**
-         * @api {post} Create new expense
+         * @api {post} Create new entry
          *
          * @param  \Illuminate\Http\Request $request
          *
@@ -41,7 +44,7 @@
         public function store(Request $request)
         {
             try {
-                return response()->json('', 201);
+                return response()->json('', 200);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
@@ -57,13 +60,13 @@
         }
 
         /**
-         * @api {get} expense/:id Obtem specific expense
+         * @api {get} entry/:id  Get specific entry
          *
-         * @param  \App\GroupDevs\Models\Expense $expense
+         * @param Entry $entry
          *
          * @return \Illuminate\Http\Response
          */
-        public function show(Expense $expense)
+        public function show(Entry $entry)
         {
             try {
                 return response()->json('', 200);
@@ -83,14 +86,14 @@
 
 
         /**
-         * @api {put} /expense/:id Update informations of specific expense
+         * @api {put} /entry/:id Update information of specific entry
          *
-         * @param  \Illuminate\Http\Request      $request
-         * @param  \App\GroupDevs\Models\Expense $expense
+         * @param  \Illuminate\Http\Request $request
+         * @param Entry                     $entry
          *
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, Expense $expense)
+        public function update(Request $request, Entry $entry)
         {
             try {
                 return response()->json('', 200);
@@ -109,13 +112,13 @@
         }
 
         /**
-         * @api {delete} /expense/:id Remove the specified resource from storage.
+         * @api {delete} /entry/:id Remove the specified entry.
          *
-         * @param Expense $expense
+         * @param Entry $entry
          *
          * @return \Illuminate\Http\Response
          */
-        public function destroy(Expense $expense)
+        public function destroy(Entry $entry)
         {
             try {
                 return response()->json('', 200);
