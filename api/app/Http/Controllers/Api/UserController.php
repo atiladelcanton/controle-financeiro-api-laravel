@@ -45,10 +45,7 @@
             }
         }
 
-        /* public function show($id)
-         {
-             return response()->json(User::find($id), 200);
-         }
+        /*
 
          public function update(UpdateUser $storeUser, $id)
          {

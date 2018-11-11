@@ -4,12 +4,22 @@
 
 
     use App\GroupDevs\Models\Category;
+    use App\GroupDevs\Services\CategoryService;
     use App\Http\Controllers\Controller;
+    use App\Http\Requests\CreateCategory;
     use Illuminate\Http\Request;
     use Log;
 
     class CategorieController extends Controller
     {
+
+        private $categoryService;
+
+        public function __construct(CategoryService $categoryService)
+        {
+            $this->categoryService = $categoryService;
+        }
+
         /**
          * @api {get} /category Get all categories
          *
@@ -18,7 +28,7 @@
         public function index()
         {
             try {
-                return response()->json('', 200);
+                return response()->json($this->categoryService->renderList(), 200);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
@@ -37,14 +47,15 @@
         /**
          * @api {post} Create new category
          *
-         * @param  \Illuminate\Http\Request $request
+         * @param CreateCategory $request
          *
          * @return \Illuminate\Http\Response
          */
-        public function store(Request $request)
+        public function store(CreateCategory $request)
         {
             try {
-                return response()->json('', 201);
+                $retorno = $this->categoryService->buildInsert($request->all());
+                return response()->json($retorno, 201);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),

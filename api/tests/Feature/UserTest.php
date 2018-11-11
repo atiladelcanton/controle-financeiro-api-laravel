@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class UserTest extends TestCase
 {
     protected $dados;
+
     public function setUp()
     {
         parent::setUp();
@@ -27,4 +28,5 @@ class UserTest extends TestCase
         $retorno->assertStatus(201);
 
     }
+
 }
