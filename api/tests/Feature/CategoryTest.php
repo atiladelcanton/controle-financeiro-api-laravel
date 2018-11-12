@@ -92,4 +92,54 @@
             $this->assertArrayHasKey('name', $resposta);
             $this->assertArrayHasKey('active', $resposta);
         }
+
+        /**
+         * @test
+         *
+         * Test: GET api/category/:id.
+         */
+        public function it_show_category()
+        {
+            $category = Category::first();
+            $response = $this->json('GET', 'api/category/'.$category->id, [],
+                $this->headers());
+
+            $response->assertStatus(200);
+            $resposta = (array)json_decode($response->content());
+            $this->assertArrayHasKey('type', $resposta);
+            $this->assertArrayHasKey('name', $resposta);
+            $this->assertArrayHasKey('active', $resposta);
+        }
+
+        /**
+         * @test
+         *
+         * Test: PUT api/category/:id.
+         */
+        public function it_update_category()
+        {
+            $category = Category::first();
+            $data = [
+                'name' => $category->name.'-'.rand(10, 100),
+                'type' => 1,
+            ];
+            $response = $this->json('PUT', 'api/category/'.$category->id, $data,
+                $this->headers());
+
+            $response->assertStatus(200);
+        }
+
+        /**
+         * @test
+         *
+         * Test: DELETE api/category/:id.
+         */
+        public function it_delete_category()
+        {
+            $category = Category::first();
+            $response = $this->delete('api/category/'.$category->id, [],
+                $this->headers());
+            $response->assertStatus(200);
+            $this->assertEquals('"Removido com sucesso"', $response->content());
+        }
     }

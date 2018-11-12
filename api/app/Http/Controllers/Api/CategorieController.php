@@ -7,7 +7,7 @@
     use App\GroupDevs\Services\CategoryService;
     use App\Http\Controllers\Controller;
     use App\Http\Requests\CreateCategory;
-    use Illuminate\Http\Request;
+    use App\Http\Requests\UpdateCategory;
     use Log;
 
     class CategorieController extends Controller
@@ -73,14 +73,16 @@
         /**
          * @api {get} category/:id  Get specific category
          *
-         * @param Category $category
+         * @param $id
          *
          * @return \Illuminate\Http\JsonResponse
          */
-        public function show(Category $category)
+        public function show($id)
         {
             try {
-                return response()->json('', 200);
+                $category = $this->categoryService->renderEdit($id);
+
+                return response()->json($category, 200);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
@@ -99,15 +101,20 @@
         /**
          * @api {put} /category/:id Update informations of specific category
          *
-         * @param  \Illuminate\Http\Request $request
-         * @param Category                  $category
+         * @param                $id
+         * @param UpdateCategory $request
          *
          * @return \Illuminate\Http\JsonResponse
          */
-        public function update(Request $request, Category $category)
+        public function update($id, UpdateCategory $request)
         {
             try {
-                return response()->json('', 200);
+                $data = $request->all();
+                $this->categoryService->buildUpdate($id,$data);
+
+                $category = $this->categoryService->renderEdit($id);
+
+                return response()->json($category, 200);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
@@ -132,7 +139,9 @@
         public function destroy(Category $category)
         {
             try {
-                return response()->json('', 200);
+                $category->delete();
+
+                return response()->json('Removido com sucesso', 200);
             } catch (\Exception $e) {
                 Log::error(
                     $e->getMessage(),
